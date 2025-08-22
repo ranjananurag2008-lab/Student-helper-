@@ -114,7 +114,131 @@
           <li><a href="https://www.studocu.com/en-us" target="_blank">StuDocu Notes & Study Material</a></li>
         </ul>
       `;
-    }
+    }<!-- Calculator Section Start -->
+<div class="calculator-container" style="margin:20px 0;">
+  <div class="calculator">
+    <div class="display" id="calc-display">0</div>
+    
+    <div class="buttons">
+      <!-- First row -->
+      <button onclick="clearDisplay()">C</button>
+      <button onclick="appendValue('%')">%</button>
+      <button onclick="appendValue('/')">/</button>
+      <button class="operator" onclick="appendValue('*')">*</button>
+
+      <!-- Second row -->
+      <button onclick="appendValue('7')">7</button>
+      <button onclick="appendValue('8')">8</button>
+      <button onclick="appendValue('9')">9</button>
+      <button class="operator" onclick="appendValue('-')">-</button>
+
+      <!-- Third row -->
+      <button onclick="appendValue('4')">4</button>
+      <button onclick="appendValue('5')">5</button>
+      <button onclick="appendValue('6')">6</button>
+      <button class="operator" onclick="appendValue('+')">+</button>
+
+      <!-- Fourth row -->
+      <button onclick="appendValue('1')">1</button>
+      <button onclick="appendValue('2')">2</button>
+      <button onclick="appendValue('3')">3</button>
+      <button class="operator" onclick="calculateResult()">=</button>
+
+      <!-- Fifth row -->
+      <button style="grid-column: span 2;" onclick="appendValue('0')">0</button>
+      <button onclick="appendValue('.')">.</button>
+      <button onclick="toggleSign()">±</button>
+
+      <!-- Advanced -->
+      <button onclick="appendValue('Math.sqrt(')">√</button>
+      <button onclick="appendValue('**2')">x²</button>
+      <button onclick="appendValue('1/')">1/x</button>
+    </div>
+
+    <!-- Memory Buttons -->
+    <div class="memory-buttons" style="display:flex; justify-content:space-between; margin-top:10px;">
+      <button onclick="memoryClear()">MC</button>
+      <button onclick="memoryRecall()">MR</button>
+      <button onclick="memoryAdd()">M+</button>
+      <button onclick="memorySubtract()">M-</button>
+    </div>
+
+    <!-- Theme Toggle -->
+    <button id="theme-toggle" onclick="toggleTheme()" style="margin-top:10px; width:100%; padding:10px; border-radius:10px;">🌙/☀️</button>
+  </div>
+</div>
+<!-- Calculator Section End -->
+
+<style>
+.calculator {
+  background: rgba(30,30,30,0.9);
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  max-width: 320px;
+  width: 100%;
+}
+.display {
+  background: #000;
+  color: #0f0;
+  font-size: 2em;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: right;
+  margin-bottom: 15px;
+  min-width: 260px;
+  overflow-x: auto;
+}
+button {
+  padding: 15px;
+  font-size: 1.2em;
+  border: none;
+  border-radius: 10px;
+  background: #333;
+  color: white;
+  box-shadow: 0 4px #111;
+  cursor: pointer;
+  transition: 0.2s;
+}
+button:hover { background: #555; }
+button:active { transform: translateY(2px); box-shadow: 0 2px #111; }
+.operator { background: #ff9500; color: #fff; }
+</style>
+
+<script>
+let display = document.getElementById('calc-display');
+let memory = 0;
+
+function appendValue(val) {
+  if(display.innerText === '0') display.innerText = '';
+  display.innerText += val;
+}
+function clearDisplay() { display.innerText = '0'; }
+function calculateResult() {
+  try { display.innerText = eval(display.innerText); } 
+  catch { display.innerText = 'Error'; }
+}
+function toggleSign() {
+  if(display.innerText.startsWith('-')) display.innerText = display.innerText.slice(1);
+  else display.innerText = '-' + display.innerText;
+}
+
+// Memory Functions
+function memoryClear() { memory = 0; }
+function memoryRecall() { display.innerText = memory; }
+function memoryAdd() { memory += parseFloat(display.innerText) || 0; }
+function memorySubtract() { memory -= parseFloat(display.innerText) || 0; }
+
+// Theme toggle
+let darkTheme = true;
+function toggleTheme() {
+  darkTheme = !darkTheme;
+  document.querySelector('.calculator').style.background = darkTheme ? 'rgba(30,30,30,0.9)' : 'rgba(240,240,240,0.9)';
+  document.querySelectorAll('button').forEach(b => b.style.background = darkTheme ? '#333' : '#ddd');
+  document.querySelectorAll('button').forEach(b => b.style.color = darkTheme ? 'white' : 'black');
+  display.style.color = darkTheme ? '#0f0' : '#000';
+}
+</script>
   </script>
 </body>
   </html>
