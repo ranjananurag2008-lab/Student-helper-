@@ -5,14 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Student Helper</title>
   <style>
-    body { font-family: Arial; background: #f0f4f8; text-align: center; margin: 0; padding: 0; }
+    body { font-family: Arial; background: #f0f4f8; margin: 0; padding: 0; text-align: center; }
     header { background: #0077cc; color: white; padding: 20px 0; }
     h1 { margin: 0; }
-    .container { margin: 50px auto; max-width: 500px; }
+    .container { margin: 40px auto; max-width: 600px; }
     a.button { display: block; margin: 15px auto; padding: 15px; background: #0077cc; color: white; text-decoration: none; border-radius: 8px; width: 200px; }
     a.button:hover { background: #005fa3; }
-    #output { margin-top: 20px; padding: 10px; background: white; border-radius: 8px; min-height: 50px; }
-    input, button { padding: 8px; margin: 5px; border-radius: 5px; border: 1px solid #ccc; }
+    #output { margin-top: 20px; padding: 15px; background: white; border-radius: 8px; min-height: 100px; box-shadow: 0 0 10px #ccc; }
+    input, textarea, button { padding: 8px; margin: 5px; border-radius: 5px; border: 1px solid #ccc; }
+    ul { text-align: left; padding-left: 20px; }
+    footer { margin-top: 30px; padding: 10px; color: #555; }
   </style>
 </head>
 <body>
@@ -21,7 +23,8 @@
   </header>
 
   <div class="container">
-    <p>Manage your notes, tasks, and resources easily.</p>
+    <p>Manage your notes, tasks, calculator, and study resources easily.</p>
+
     <a href="#" class="button" onclick="showNotes()">Notes</a>
     <a href="#" class="button" onclick="showCalculator()">Calculator</a>
     <a href="#" class="button" onclick="showTodo()">To-Do List</a>
@@ -35,6 +38,7 @@
   </footer>
 
   <script>
+    // Notes Section
     function showNotes() {
       document.getElementById('output').innerHTML = `
         <h3>Notes</h3>
@@ -42,27 +46,28 @@
         <br><button onclick="saveNotes()">Save Notes</button>
       `;
     }
-
     function saveNotes() {
       let notes = document.getElementById('notes').value;
-      alert("Notes saved! (Locally in your browser, refresh will clear it)");
+      alert("Notes saved! (Locally in browser, refresh will clear it)");
       console.log("Saved Notes:", notes);
     }
 
+    // Calculator Section
     function showCalculator() {
       document.getElementById('output').innerHTML = `
-        <h3>Simple Calculator</h3>
-        <input type="number" id="num1" placeholder="Number 1">
-        <input type="number" id="num2" placeholder="Number 2">
-        <br>
-        <button onclick="calculate('+')">+</button>
-        <button onclick="calculate('-')">-</button>
-        <button onclick="calculate('*')">*</button>
-        <button onclick="calculate('/')">/</button>
-        <p id="calcResult"></p>
+        <h3>Calculator</h3>
+        <div style="margin:10px auto; max-width:300px; text-align:center;">
+          <input type="number" id="num1" placeholder="Number 1" style="width:120px;">
+          <input type="number" id="num2" placeholder="Number 2" style="width:120px;">
+          <br><br>
+          <button onclick="calculate('+')">+</button>
+          <button onclick="calculate('-')">-</button>
+          <button onclick="calculate('*')">*</button>
+          <button onclick="calculate('/')">/</button>
+          <p id="calcResult" style="margin-top:10px; font-weight:bold;"></p>
+        </div>
       `;
     }
-
     function calculate(op) {
       let n1 = parseFloat(document.getElementById('num1').value);
       let n2 = parseFloat(document.getElementById('num2').value);
@@ -74,6 +79,7 @@
       document.getElementById('calcResult').innerText = "Result: " + result;
     }
 
+    // To-Do Section
     function showTodo() {
       document.getElementById('output').innerHTML = `
         <h3>To-Do List</h3>
@@ -82,7 +88,6 @@
         <ul id="todoList"></ul>
       `;
     }
-
     function addTodo() {
       let task = document.getElementById('todoInput').value;
       if(task === "") return;
@@ -92,6 +97,7 @@
       document.getElementById('todoInput').value = "";
     }
 
+    // Resources Section
     function showResources() {
       document.getElementById('output').innerHTML = `
         <h3>Resources</h3>
@@ -99,9 +105,16 @@
           <li><a href="https://www.khanacademy.org/" target="_blank">Khan Academy</a></li>
           <li><a href="https://www.coursera.org/" target="_blank">Coursera</a></li>
           <li><a href="https://www.geeksforgeeks.org/" target="_blank">GeeksforGeeks</a></li>
+          <li><a href="https://www.pdfdrive.com/" target="_blank">Free Books (PDFDrive)</a></li>
+          <li><a href="https://openstax.org/subjects" target="_blank">OpenStax Textbooks</a></li>
+          <li><a href="https://www.freecomputerbooks.com/" target="_blank">Free Computer Books</a></li>
+          <li><a href="https://www.gutenberg.org/" target="_blank">Project Gutenberg</a></li>
+          <li><a href="https://books.goalkicker.com/" target="_blank">GoalKicker Programming eBooks</a></li>
+          <li><a href="https://www.b-ok.global/" target="_blank">BookFi (Free PDFs)</a></li>
+          <li><a href="https://www.studocu.com/en-us" target="_blank">StuDocu Notes & Study Material</a></li>
         </ul>
       `;
     }
   </script>
 </body>
-</html>
+  </html>
