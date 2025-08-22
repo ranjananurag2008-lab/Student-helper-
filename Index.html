@@ -1,256 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Student Helper</title>
-  <style>
-    body { font-family: Arial; background: #f0f4f8; margin: 0; padding: 0; text-align: center; }
-    header { background: #0077cc; color: white; padding: 20px 0; }
-    h1 { margin: 0; }
-    .container { margin: 40px auto; max-width: 600px; }
-    a.button { display: block; margin: 15px auto; padding: 15px; background: #0077cc; color: white; text-decoration: none; border-radius: 8px; width: 200px; }
-    a.button:hover { background: #005fa3; }
-    #output { margin-top: 20px; padding: 15px; background: white; border-radius: 8px; min-height: 100px; box-shadow: 0 0 10px #ccc; }
-    input, textarea, button { padding: 8px; margin: 5px; border-radius: 5px; border: 1px solid #ccc; }
-    ul { text-align: left; padding-left: 20px; }
-    footer { margin-top: 30px; padding: 10px; color: #555; }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>Welcome to Student Helper</h1>
-  </header>
-
-  <div class="container">
-    <p>Manage your notes, tasks, calculator, and study resources easily.</p>
-
-    <a href="#" class="button" onclick="showNotes()">Notes</a>
-    <a href="#" class="button" onclick="showCalculator()">Calculator</a>
-    <a href="#" class="button" onclick="showTodo()">To-Do List</a>
-    <a href="#" class="button" onclick="showResources()">Resources</a>
-
-    <div id="output"></div>
-  </div>
-
-  <footer>
-    <p>&copy; 2025 Student Helper</p>
-  </footer>
-
-  <script>
-    // Notes Section
-    function showNotes() {
-      document.getElementById('output').innerHTML = `
-        <h3>Notes</h3>
-        <textarea id="notes" rows="5" cols="40" placeholder="Write your notes here..."></textarea>
-        <br><button onclick="saveNotes()">Save Notes</button>
-      `;
-    }
-    function saveNotes() {
-      let notes = document.getElementById('notes').value;
-      alert("Notes saved! (Locally in browser, refresh will clear it)");
-      console.log("Saved Notes:", notes);
-    }
-
-    // Calculator Section
-    function showCalculator() {
-      document.getElementById('output').innerHTML = `
-        <h3>Calculator</h3>
-        <div style="margin:10px auto; max-width:300px; text-align:center;">
-          <input type="number" id="num1" placeholder="Number 1" style="width:120px;">
-          <input type="number" id="num2" placeholder="Number 2" style="width:120px;">
-          <br><br>
-          <button onclick="calculate('+')">+</button>
-          <button onclick="calculate('-')">-</button>
-          <button onclick="calculate('*')">*</button>
-          <button onclick="calculate('/')">/</button>
-          <p id="calcResult" style="margin-top:10px; font-weight:bold;"></p>
-        </div>
-      `;
-    }
-    function calculate(op) {
-      let n1 = parseFloat(document.getElementById('num1').value);
-      let n2 = parseFloat(document.getElementById('num2').value);
-      let result = 0;
-      if(op === '+') result = n1 + n2;
-      else if(op === '-') result = n1 - n2;
-      else if(op === '*') result = n1 * n2;
-      else if(op === '/') result = n1 / n2;
-      document.getElementById('calcResult').innerText = "Result: " + result;
-    }
-
-    // To-Do Section
-    function showTodo() {
-      document.getElementById('output').innerHTML = `
-        <h3>To-Do List</h3>
-        <input type="text" id="todoInput" placeholder="Enter task">
-        <button onclick="addTodo()">Add</button>
-        <ul id="todoList"></ul>
-      `;
-    }
-    function addTodo() {
-      let task = document.getElementById('todoInput').value;
-      if(task === "") return;
-      let li = document.createElement('li');
-      li.innerText = task;
-      document.getElementById('todoList').appendChild(li);
-      document.getElementById('todoInput').value = "";
-    }
-
-    // Resources Section
-    function showResources() {
-      document.getElementById('output').innerHTML = `
-        <h3>Resources</h3>
-        <ul>
-          <li><a href="https://www.khanacademy.org/" target="_blank">Khan Academy</a></li>
-          <li><a href="https://www.coursera.org/" target="_blank">Coursera</a></li>
-          <li><a href="https://www.geeksforgeeks.org/" target="_blank">GeeksforGeeks</a></li>
-          <li><a href="https://www.pdfdrive.com/" target="_blank">Free Books (PDFDrive)</a></li>
-          <li><a href="https://openstax.org/subjects" target="_blank">OpenStax Textbooks</a></li>
-          <li><a href="https://www.freecomputerbooks.com/" target="_blank">Free Computer Books</a></li>
-          <li><a href="https://www.gutenberg.org/" target="_blank">Project Gutenberg</a></li>
-          <li><a href="https://books.goalkicker.com/" target="_blank">GoalKicker Programming eBooks</a></li>
-          <li><a href="https://www.b-ok.global/" target="_blank">BookFi (Free PDFs)</a></li>
-          <li><a href="https://www.studocu.com/en-us" target="_blank">StuDocu Notes & Study Material</a></li>
-        </ul>
-      `;
-    }<!-- Calculator Section Start -->
-<div class="calculator-container" style="margin:20px 0;">
-  <div class="calculator">
-    <div class="display" id="calc-display">0</div>
-    
-    <div class="buttons">
-      <!-- First row -->
-      <button onclick="clearDisplay()">C</button>
-      <button onclick="appendValue('%')">%</button>
-      <button onclick="appendValue('/')">/</button>
-      <button class="operator" onclick="appendValue('*')">*</button>
-
-      <!-- Second row -->
-      <button onclick="appendValue('7')">7</button>
-      <button onclick="appendValue('8')">8</button>
-      <button onclick="appendValue('9')">9</button>
-      <button class="operator" onclick="appendValue('-')">-</button>
-
-      <!-- Third row -->
-      <button onclick="appendValue('4')">4</button>
-      <button onclick="appendValue('5')">5</button>
-      <button onclick="appendValue('6')">6</button>
-      <button class="operator" onclick="appendValue('+')">+</button>
-
-      <!-- Fourth row -->
-      <button onclick="appendValue('1')">1</button>
-      <button onclick="appendValue('2')">2</button>
-      <button onclick="appendValue('3')">3</button>
-      <button class="operator" onclick="calculateResult()">=</button>
-
-      <!-- Fifth row -->
-      <button style="grid-column: span 2;" onclick="appendValue('0')">0</button>
-      <button onclick="appendValue('.')">.</button>
-      <button onclick="toggleSign()">±</button>
-
-      <!-- Advanced -->
-      <button onclick="appendValue('Math.sqrt(')">√</button>
-      <button onclick="appendValue('**2')">x²</button>
-      <button onclick="appendValue('1/')">1/x</button>
-    </div>
-
-    <!-- Memory Buttons -->
-    <div class="memory-buttons" style="display:flex; justify-content:space-between; margin-top:10px;">
-      <button onclick="memoryClear()">MC</button>
-      <button onclick="memoryRecall()">MR</button>
-      <button onclick="memoryAdd()">M+</button>
-      <button onclick="memorySubtract()">M-</button>
-    </div>
-
-    <!-- Theme Toggle -->
-    <button id="theme-toggle" onclick="toggleTheme()" style="margin-top:10px; width:100%; padding:10px; border-radius:10px;">🌙/☀️</button>
-  </div>
-</div>
-<!-- Calculator Section End -->
-
-<style>
-.calculator {
-  background: rgba(30,30,30,0.9);
-  padding: 20px;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-  max-width: 320px;
-  width: 100%;
-}
-.display {
-  background: #000;
-  color: #0f0;
-  font-size: 2em;
-  padding: 10px;
-  border-radius: 10px;
-  text-align: right;
-  margin-bottom: 15px;
-  min-width: 260px;
-  overflow-x: auto;
-}
-button {
-  padding: 15px;
-  font-size: 1.2em;
-  border: none;
-  border-radius: 10px;
-  background: #333;
-  color: white;
-  box-shadow: 0 4px #111;
-  cursor: pointer;
-  transition: 0.2s;
-}
-button:hover { background: #555; }
-button:active { transform: translateY(2px); box-shadow: 0 2px #111; }
-.operator { background: #ff9500; color: #fff; }
-</style>
-
-<script>
-let display = document.getElementById('calc-display');
-let memory = 0;
-
-function appendValue(val) {
-  if(display.innerText === '0') display.innerText = '';
-  display.innerText += val;
-}
-function clearDisplay() { display.innerText = '0'; }
-function calculateResult() {
-  try { display.innerText = eval(display.innerText); } 
-  catch { display.innerText = 'Error'; }
-}
-function toggleSign() {
-  if(display.innerText.startsWith('-')) display.innerText = display.innerText.slice(1);
-  else display.innerText = '-' + display.innerText;
-}
-
-// Memory Functions
-function memoryClear() { memory = 0; }
-function memoryRecall() { display.innerText = memory; }
-function memoryAdd() { memory += parseFloat(display.innerText) || 0; }
-function memorySubtract() { memory -= parseFloat(display.innerText) || 0; }
-
-// Theme toggle
-let darkTheme = true;
-function toggleTheme() {
-  darkTheme = !darkTheme;
-  document.querySelector('.calculator').style.background = darkTheme ? 'rgba(30,30,30,0.9)' : 'rgba(240,240,240,0.9)';
-  document.querySelectorAll('button').forEach(b => b.style.background = darkTheme ? '#333' : '#ddd');
-  document.querySelectorAll('button').forEach(b => b.style.color = darkTheme ? 'white' : 'black');
-  display.style.color = darkTheme ? '#0f0' : '#000';
-}
-</script>
-  </script>
-</body>
-  </html>
-  <!DOCTYPE html>
-<html lang="en">
-<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ultimate Supreme Final Boss App</title>
 <style>
-/* Base */
-body {margin:0;padding:0;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f0f0f5;color:#333;transition:0.3s;}
+body{margin:0;padding:0;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f0f0f5;color:#333;transition:0.3s;}
 header{background:#1a1a2e;color:white;text-align:center;padding:20px 0;font-size:1.8em;font-weight:bold;}
 nav{display:flex;justify-content:center;flex-wrap:wrap;background:#162447;}
 nav button{padding:12px 20px;margin:3px;font-size:1em;cursor:pointer;border:none;border-radius:5px;background:#1f4068;color:white;transition:0.3s;}
@@ -260,12 +15,11 @@ nav button:hover{background:#162447;}
 input,textarea{padding:10px;border-radius:5px;border:1px solid #aaa;width:100%;margin-bottom:10px;}
 button{border:none;border-radius:5px;cursor:pointer;transition:0.3s;}
 button:hover{opacity:0.85;}
-.list-item{background:white;padding:10px;margin-bottom:5px;border-left:4px solid #1a1a2e;border-radius:5px;word-wrap:break-word; display:flex; justify-content:space-between; align-items:center;}
+.list-item{background:white;padding:10px;margin-bottom:5px;border-left:4px solid #1a1a2e;border-radius:5px;word-wrap:break-word;display:flex;justify-content:space-between;align-items:center;}
 .dark-mode{background:#1a1a2e;color:#f0f0f5;}
-.dark-mode .list-item, .dark-mode a{background:#333;color:white;border-left:4px solid #f0f0f5;}
-.dark-mode input, .dark-mode textarea{background:#333;color:white;border:1px solid #555;}
+.dark-mode .list-item,.dark-mode a{background:#333;color:white;border-left:4px solid #f0f0f5;}
+.dark-mode input,.dark-mode textarea{background:#333;color:white;border:1px solid #555;}
 @media(max-width:480px){nav button{flex:1 1 45%;margin:2px;font-size:0.9em;}}
-/* Calculator */
 .calc input{width:100%;padding:12px;margin-bottom:10px;font-size:1.2em;text-align:right;border-radius:5px;border:1px solid #aaa;}
 .calc button{width:22%;margin:1%;padding:12px;font-size:1.1em;cursor:pointer;border-radius:5px;border:none;background:#1f4068;color:white;transition:0.2s;}
 .calc button:hover{background:#162447;}
@@ -356,7 +110,7 @@ button:hover{opacity:0.85;}
 </div>
 
 <script>
-// Section Navigation
+// Sections
 function showSection(id){
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
@@ -369,8 +123,8 @@ function toggleDarkMode(){
 
 // Login
 function login(){
-  const user = document.getElementById('username').value;
-  const pass = document.getElementById('password').value;
+  const user=document.getElementById('username').value;
+  const pass=document.getElementById('password').value;
   if(user==='admin' && pass==='1234'){
     alert('Login Successful!');
     showSection('calculator');
@@ -378,24 +132,24 @@ function login(){
 }
 
 // Calculator
-let calcInput = document.getElementById('calcInput');
-let calcHistoryDiv = document.getElementById('calcHistory');
+let calcInput=document.getElementById('calcInput');
+let calcHistoryDiv=document.getElementById('calcHistory');
 function appendCalc(val){ if(calcInput) calcInput.value+=val; }
 function clearCalc(){ if(calcInput) calcInput.value=''; }
 function calculate(){
   if(!calcInput) return;
   try{
-    let res = eval(calcInput.value);
-    calcHistoryDiv.innerHTML += `<div onclick="reuseCalc('${calcInput.value}')">${calcInput.value} = ${res}</div>`;
-    calcInput.value = res;
+    let res=eval(calcInput.value);
+    calcHistoryDiv.innerHTML+=`<div onclick="reuseCalc('${calcInput.value}')">${calcInput.value} = ${res}</div>`;
+    calcInput.value=res;
   } catch(e){ alert('Invalid Input'); }
 }
-function reuseCalc(expr){ calcInput.value = expr; }
+function reuseCalc(expr){ calcInput.value=expr; }
 // Keyboard support
-document.addEventListener('keydown', e=>{
+document.addEventListener('keydown',e=>{
   if(calcInput && '0123456789+-*/%.()'.includes(e.key)) appendCalc(e.key);
   else if(e.key==='Enter') calculate();
-  else if(e.key==='Backspace') calcInput.value = calcInput.value.slice(0,-1);
+  else if(e.key==='Backspace') calcInput.value=calcInput.value.slice(0,-1);
 });
 
 // Notes
@@ -411,14 +165,14 @@ function addNote(){
   }
 }
 function editNote(btn){
-  const span = btn.parentElement.querySelector('span');
-  const newText = prompt('Edit Note:', span.innerText);
-  if(newText) { span.innerText = newText; saveNotes(); }
+  const span=btn.parentElement.querySelector('span');
+  const newText=prompt('Edit Note:',span.innerText);
+  if(newText){ span.innerText=newText; saveNotes(); }
 }
 function deleteNote(btn){ btn.parentElement.remove(); saveNotes(); }
 function saveNotes(){
-  const notes = Array.from(document.querySelectorAll('#noteList .list-item span')).map(s=>s.innerText);
-  localStorage.setItem('notes', JSON.stringify(notes));
+  const notes=Array.from(document.querySelectorAll('#noteList .list-item span')).map(s=>s.innerText);
+  localStorage.setItem('notes',JSON.stringify(notes));
 }
 function loadNotes(){
   const notes=JSON.parse(localStorage.getItem('notes')||'[]');
@@ -443,11 +197,4 @@ function addTodo(){
     saveTodos();
   }
 }
-function editTodo(btn){
-  const span=btn.parentElement.querySelector('span');
-  const newText=prompt('Edit Task:', span.innerText);
-  if(newText){ span.innerText=newText; saveTodos(); }
-}
-function deleteTodo(btn){ btn.parentElement.remove(); saveTodos(); }
-function saveTodos(){
-  const todos
+function editTodo(btn
