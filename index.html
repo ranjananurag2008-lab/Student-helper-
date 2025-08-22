@@ -3,10 +3,105 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My First Website</title>
+  <title>Student Helper</title>
+  <style>
+    body { font-family: Arial; background: #f0f4f8; text-align: center; margin: 0; padding: 0; }
+    header { background: #0077cc; color: white; padding: 20px 0; }
+    h1 { margin: 0; }
+    .container { margin: 50px auto; max-width: 500px; }
+    a.button { display: block; margin: 15px auto; padding: 15px; background: #0077cc; color: white; text-decoration: none; border-radius: 8px; width: 200px; }
+    a.button:hover { background: #005fa3; }
+    #output { margin-top: 20px; padding: 10px; background: white; border-radius: 8px; min-height: 50px; }
+    input, button { padding: 8px; margin: 5px; border-radius: 5px; border: 1px solid #ccc; }
+  </style>
 </head>
 <body>
-  <h1>Welcome to My Website!</h1>
-  <p>This is my first website hosted on GitHub Pages.</p>
+  <header>
+    <h1>Welcome to Student Helper</h1>
+  </header>
+
+  <div class="container">
+    <p>Manage your notes, tasks, and resources easily.</p>
+    <a href="#" class="button" onclick="showNotes()">Notes</a>
+    <a href="#" class="button" onclick="showCalculator()">Calculator</a>
+    <a href="#" class="button" onclick="showTodo()">To-Do List</a>
+    <a href="#" class="button" onclick="showResources()">Resources</a>
+
+    <div id="output"></div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Student Helper</p>
+  </footer>
+
+  <script>
+    function showNotes() {
+      document.getElementById('output').innerHTML = `
+        <h3>Notes</h3>
+        <textarea id="notes" rows="5" cols="40" placeholder="Write your notes here..."></textarea>
+        <br><button onclick="saveNotes()">Save Notes</button>
+      `;
+    }
+
+    function saveNotes() {
+      let notes = document.getElementById('notes').value;
+      alert("Notes saved! (Locally in your browser, refresh will clear it)");
+      console.log("Saved Notes:", notes);
+    }
+
+    function showCalculator() {
+      document.getElementById('output').innerHTML = `
+        <h3>Simple Calculator</h3>
+        <input type="number" id="num1" placeholder="Number 1">
+        <input type="number" id="num2" placeholder="Number 2">
+        <br>
+        <button onclick="calculate('+')">+</button>
+        <button onclick="calculate('-')">-</button>
+        <button onclick="calculate('*')">*</button>
+        <button onclick="calculate('/')">/</button>
+        <p id="calcResult"></p>
+      `;
+    }
+
+    function calculate(op) {
+      let n1 = parseFloat(document.getElementById('num1').value);
+      let n2 = parseFloat(document.getElementById('num2').value);
+      let result = 0;
+      if(op === '+') result = n1 + n2;
+      else if(op === '-') result = n1 - n2;
+      else if(op === '*') result = n1 * n2;
+      else if(op === '/') result = n1 / n2;
+      document.getElementById('calcResult').innerText = "Result: " + result;
+    }
+
+    function showTodo() {
+      document.getElementById('output').innerHTML = `
+        <h3>To-Do List</h3>
+        <input type="text" id="todoInput" placeholder="Enter task">
+        <button onclick="addTodo()">Add</button>
+        <ul id="todoList"></ul>
+      `;
+    }
+
+    function addTodo() {
+      let task = document.getElementById('todoInput').value;
+      if(task === "") return;
+      let li = document.createElement('li');
+      li.innerText = task;
+      document.getElementById('todoList').appendChild(li);
+      document.getElementById('todoInput').value = "";
+    }
+
+    function showResources() {
+      document.getElementById('output').innerHTML = `
+        <h3>Resources</h3>
+        <ul>
+          <li><a href="https://www.khanacademy.org/" target="_blank">Khan Academy</a></li>
+          <li><a href="https://www.coursera.org/" target="_blank">Coursera</a></li>
+          <li><a href="https://www.geeksforgeeks.org/" target="_blank">GeeksforGeeks</a></li>
+        </ul>
+      `;
+    }
+  </script>
 </body>
 </html>
